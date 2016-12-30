@@ -43,6 +43,22 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.css</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.map</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.ttf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.woff</url-pattern>
+    </servlet-mapping>
 	<!-- Spring view分发器 -->
 	<servlet>
 		<servlet-name>dispatcher0121</servlet-name>
