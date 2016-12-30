@@ -11,7 +11,9 @@ public class UsernameToId
     private static Hashtable<String, String> usertoID = new Hashtable<>();
 
     private static void initData() {
-        String inputfile = Constant.path + "/" + "username_id.txt";
+        
+        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        String inputfile = path + "/" + "username_id.txt";
         
         try {
             FileInputStream fileInputStream = new FileInputStream(inputfile);
@@ -39,12 +41,12 @@ public class UsernameToId
         }
     }
     
-    private static String getIDbyName(String username) {
+    public static String getIDbyName(String username) {
         if (usertoID.size() == 0) {
             UsernameToId.initData();
         }
         
-        return getIDbyName(username.trim());
+        return usertoID.get(username.trim());
     }
     
     public static void main(String[] args)

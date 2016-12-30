@@ -17,7 +17,8 @@ public class UserTopKData
      */
     private static void initData() {
         // load the final.txt into memory
-        String finalResult = Constant.resultPath + "/" + Constant.result_file;
+        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        String finalResult = path + "/" + Constant.result_file;
         try {
             FileInputStream fileInputStream = new FileInputStream(finalResult);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
