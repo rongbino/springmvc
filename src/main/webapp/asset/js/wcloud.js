@@ -14,12 +14,7 @@ function requireCallback (ec, defaultTheme) {
     window.onresize = myChart.resize;
 }
 
-function refresh(isBtnRefresh){
-    if (isBtnRefresh) {
-        needRefresh = true;
-        focusGraphic();
-        return;
-    }
+function refresh(){
     needRefresh = false;
     if (myChart && myChart.dispose) {
         myChart.dispose();
@@ -27,6 +22,72 @@ function refresh(isBtnRefresh){
     myChart = echarts.init(domMain, curTheme);
     window.onresize = myChart.resize;
     myChart.setOption(option, true)
+}
+
+function search() {
+    userid = $('#username').val();
+    ulll = '/wordcloud/rest/username/'+userid;
+    // alert(ulll);
+    $.ajax({
+        url: ulll,
+        type:'GET', //GET
+        async:false,    //或false,是否异步
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        beforeSend:function(xhr){
+            console.log(xhr)
+            console.log('发送前')
+        },
+        success:function(data,textStatus,jqXHR){
+            console.log(data)
+            console.log(textStatus)
+            console.log(jqXHR)
+            updateOption(data)
+        },
+        error:function(xhr,textStatus){
+            console.log('错误')
+            console.log(xhr)
+            console.log(textStatus)
+        },
+        complete:function(){
+            console.log('结束')
+        }
+    })
+
+    if (myChart && myChart.dispose) {
+        myChart.dispose();
+    }
+    myChart = echarts.init(domMain, curTheme);
+    window.onresize = myChart.resize;
+    myChart.setOption(option, true)
+}
+
+function updateOption(data) {
+    console.log(data);
+    if (data) {
+        if (data.username != "") {
+            option.title.text = data.username;
+        }
+        option.series[0].data = [];
+        $.each(data.taglist, function (idx, item) {
+            console.log("id:" + idx);
+            console.log("node:" + item.name);
+            console.log("value:" + item.value);
+
+            val = item.value * 100;
+            val = (Math.floor(val)/100)*45;
+            var obj = {
+                name: item.name,
+                value: Math.floor(val),
+                itemStyle: createRandomItemStyle()
+            };
+
+            if (idx >= 50) { // 最大显示50个tag
+                return;
+            }
+            option.series[0].data.push(obj);
+        });
+    }
 }
 
 var echarts;
@@ -136,7 +197,7 @@ function createRandomItemStyle() {
 option = {
     title: {
         text: 'User Tag',
-        //link: 'http://www.google.com/trends/hottrends'
+        link: 'http://www.google.com/trends/hottrends'
     },
     tooltip: {
         show: true
@@ -146,10 +207,10 @@ option = {
         type: 'wordCloud',
         size: ['80%', '80%'],
         textRotation : [0, 0, 0, 0],
-        textPadding: 0,
+        textPadding: 2,
         autoSize: {
-            enable: true,
-            minSize: 14
+            enable: false,
+            minSize: 8
         },
         data: [
             {
