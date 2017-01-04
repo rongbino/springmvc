@@ -32,6 +32,7 @@ public class UserInfo
     {
         this.taglist = taglist;
     }
-    
-    
+    public void addTag(UserTag tag) {
+        this.taglist.add(tag);
+    }
 }

@@ -24,6 +24,52 @@ function refresh(){
     myChart.setOption(option, true)
 }
 
+function showCon(param) {
+    if (typeof param.seriesIndex == undefined) {
+        return;
+    }
+    if (param.type=='click') {
+        userid = $('#username').val();
+        ulll = '/wordcloud/rest/con/'+userid + '/'+param.name;
+        // alert(ulll);
+        $.ajax({
+            url: ulll,
+            type:'GET', //GET
+            async:false,    //或false,是否异步
+            timeout:5000,    //超时时间
+            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            beforeSend:function(xhr){
+                console.log(xhr)
+                console.log('发送前')
+            },
+            success:function(data,textStatus,jqXHR){
+                console.log(data)
+                console.log(textStatus)
+                console.log(jqXHR)
+                updatePanel(data)
+            },
+            error:function(xhr,textStatus){
+                console.log('错误')
+                console.log(xhr)
+                console.log(textStatus)
+            },
+            complete:function(){
+                console.log('结束')
+            }
+        });
+    }
+}
+
+function updatePanel(obj) {
+    if (obj) {
+        str = obj.userid + "<br/>";
+        $.each(obj.conList, function(idx, item){
+            str = str + item + "<br/>";
+        });
+        $('#showInfo').html(str);
+    }
+}
+
 function search() {
     userid = $('#username').val();
     ulll = '/wordcloud/rest/username/'+userid;
@@ -52,14 +98,7 @@ function search() {
         complete:function(){
             console.log('结束')
         }
-    })
-
-    if (myChart && myChart.dispose) {
-        myChart.dispose();
-    }
-    myChart = echarts.init(domMain, curTheme);
-    window.onresize = myChart.resize;
-    myChart.setOption(option, true)
+    });
 }
 
 function updateOption(data) {
@@ -71,22 +110,27 @@ function updateOption(data) {
         option.series[0].data = [];
         $.each(data.taglist, function (idx, item) {
             console.log("id:" + idx);
-            console.log("node:" + item.name);
+            console.log("name:" + item.name);
             console.log("value:" + item.value);
 
-            val = item.value * 100;
-            val = (Math.floor(val)/100)*45;
-            var obj = {
+            val = item.value * 1000;
+            // val = (Math.floor(val)/1000)*45;
+            obj = {
                 name: item.name,
-                value: Math.floor(val),
+                value: val,
                 itemStyle: createRandomItemStyle()
             };
-
-            if (idx >= 50) { // 最大显示50个tag
-                return;
-            }
             option.series[0].data.push(obj);
         });
+
+        if (myChart && myChart.dispose) {
+            myChart.dispose();
+        }
+        var ec = require('echarts/config');
+        myChart = echarts.init(domMain, curTheme);
+        myChart.on(ec.EVENT.CLICK, showCon);
+        window.onresize = myChart.resize;
+        myChart.setOption(option, true);
     }
 }
 
@@ -200,16 +244,15 @@ option = {
         link: 'http://www.google.com/trends/hottrends'
     },
     tooltip: {
-        show: true
     },
     series: [{
         name: 'User Tag',
         type: 'wordCloud',
-        size: ['80%', '80%'],
+        size: ['100%', '100%'],
         textRotation : [0, 0, 0, 0],
-        textPadding: 2,
+        textPadding: 1,
         autoSize: {
-            enable: false,
+            enable: true,
             minSize: 8
         },
         data: [
@@ -224,17 +267,17 @@ option = {
             },
             {
                 name: "Macys",
-                value: 6181,
+                value: 2819,
                 itemStyle: createRandomItemStyle()
             },
             {
                 name: "Amy Schumer",
-                value: 4386,
+                value: 6481,
                 itemStyle: createRandomItemStyle()
             },
             {
                 name: "Jurassic World",
-                value: 4055,
+                value: 6181,
                 itemStyle: createRandomItemStyle()
             },
             {

@@ -15,11 +15,6 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css">
 
     <script src="./www/js/echarts.js"></script>
-    <!--<script src="../asset/js/codemirror.js"></script>-->
-    <!--<script src="../asset/js/javascript.js"></script>-->
-
-    <!--<link href="../asset/css/codemirror.css" rel="stylesheet">-->
-    <!--<link href="../asset/css/monokai.css" rel="stylesheet">-->
 </head>
 
 <body>
@@ -30,29 +25,50 @@
         <div class="contianer">
             <div class="row">
                 <div class="col-lg-6">
-                    <span>请输入: Kenny Alex Jwei Yong Xuping Lailin or (user1 - user11)</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="input-group">
-                        <input id="username" type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <span>请输入: Kenny Jwei Yong Xuping Lailin User1 or (201-205, 1001-1005, 10001-10005)</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="input-group">
+                                <input id="username" type="text" class="form-control" placeholder="Search for Username...">
+                                <span class="input-group-btn">
                         <button onclick="search()" class="btn btn-primary" type="button">Go!</button>
                     </span>
+                            </div>
+                            <br>
+                        </div>
                     </div>
                     <br>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card" style="height:500px">
-                        <div class="card-header">Word Cloud</div>
-                        <div id="graphic">
-                            <div id="main" class="main"></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card" style="height: 500px;">
+                                <div class="card-header">Word Cloud</div>
+                                <div id="graphic">
+                                    <div id="main" class="main"></div>
 
-                        </div><!--/span-->
+                                </div><!--/span-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <span>用户对话显示</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary" style="height: 500px;">
+                                <div class="panel-heading">Conversation Evidence</div>
+                                <div id="conpanel" class="panel-body pre-scrollable" style="height: 450px;">
+                                    <text id="showInfo">Content</text>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
