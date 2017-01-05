@@ -46,10 +46,12 @@ public class UsertagData
                         continue;
                     } else {
                         String[] values = line.split(":");
-                        UserTag tag = new UserTag();
-                        tag.setName(values[0].trim());
-                        tag.setValue(Double.valueOf(values[1].trim()));
-                        match3.add(tag);
+                        if (values != null && values.length == 2) {
+                            UserTag tag = new UserTag();
+                            tag.setName(values[0].trim());
+                            tag.setValue(Double.valueOf(values[1].trim()));
+                            match3.add(tag);
+                        }
                     }
                 }
             }
