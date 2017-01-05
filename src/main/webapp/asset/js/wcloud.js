@@ -113,8 +113,8 @@ function updateOption(data) {
             console.log("name:" + item.name);
             console.log("value:" + item.value);
 
-            val = item.value * 1000;
-            // val = (Math.floor(val)/1000)*45;
+            val = item.value * 10000;
+            val = Math.round(val);
             obj = {
                 name: item.name,
                 value: val,
@@ -248,12 +248,12 @@ option = {
     series: [{
         name: 'User Tag',
         type: 'wordCloud',
-        size: ['100%', '100%'],
+        size: ['80%', '80%'],
         textRotation : [0, 0, 0, 0],
-        textPadding: 1,
+        textPadding: 2,
         autoSize: {
             enable: true,
-            minSize: 8
+            minSize: 14
         },
         data: [
             {

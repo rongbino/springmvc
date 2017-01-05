@@ -101,7 +101,7 @@ public class RestfullController
                 Collections.reverse(list);
                 for (int i = 0; i < list.size(); i++) {
                     info.addTag(list.get(i));
-                    if (i >= 50) {
+                    if (i >= 49) {
                         break;
                     }
                 }
