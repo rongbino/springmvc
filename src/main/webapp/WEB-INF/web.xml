@@ -4,7 +4,7 @@
          version="2.5">
     <context-param>
         <param-name>wordcloud</param-name>
-        <param-value>com.emotibot</param-value>
+        <param-value>com.trong</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
